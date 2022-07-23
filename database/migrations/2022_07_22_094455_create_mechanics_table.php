@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('mechanics', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->unsignedTinyInteger('role')->default(1);
-            $table->rememberToken();
+            $table->string('name', 30);
+            $table->string('photo', 254);
+            $table->unsignedDecimal('rating', $precision = 3, $scale = 2);
+            $table->unsignedBigInteger('autoservice_id');   
+            $table->foreign('autoservice_id')->references('id')->on('autoservices');         
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('mechanics');
     }
 };
