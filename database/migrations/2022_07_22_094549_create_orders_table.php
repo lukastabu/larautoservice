@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('autoservice_id');   
+            $table->foreign('autoservice_id')->references('id')->on('autoservices');         
+            $table->unsignedBigInteger('mechanic_id');   
+            $table->foreign('mechanic_id')->references('id')->on('mechanics');         
+            $table->unsignedBigInteger('repair_id');   
+            $table->foreign('repair_id')->references('id')->on('repairs');         
             $table->timestamps();
         });
     }

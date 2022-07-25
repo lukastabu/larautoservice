@@ -11,7 +11,7 @@
                         <form method="POST" action="{{ route('mechanic-store') }}">
                             <li>Mechanic's Full Name: <input type="text" name="name"></li>
                             <li>Link to Mechanic's Prifile photo: <input type="text" name="photo"></li>
-                            <li>Mechanic's Rating: <input type="number" name="rating"></li>
+                            <li>Mechanic's Rating: <input type="text" name="rating"></li>
                             <li>Mechanic's Location: 
                             <select name="autoservice_id">
                                 @foreach ($autoservices as $autoservice)

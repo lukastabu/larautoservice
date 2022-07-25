@@ -54,47 +54,66 @@
                                 </li>
                             @endif
                         @else
-
+                            @if (Auth::user()->role > 3)
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Autoservices
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('autoservice-index') }}">
+                                            Autoservices List
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('autoservice-create') }}">
+                                            New Autoservice
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Mechanics
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('mechanic-index') }}">
+                                            Mechanics List
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('mechanic-create') }}">
+                                            New Mechanic
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        Repairs
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ route('repair-index') }}">
+                                            Repairs List
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('repair-create') }}">
+                                            New Repair
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Autoservice
+                                    Find nearest Autoservice
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('autoservice-index') }}">
-                                        Autoservice List
+                                    <a class="dropdown-item" href="{{ route('front-index') }}">
+                                        Browse Autoservices
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('autoservice-create') }}">
-                                        New Autoservice
+                                    @if (isset($autoservices))
+                                    @foreach ($autoservices as $autoservice)
+                                    <a class="dropdown-item" href="{{route('front-show', $autoservice->id) }}">
+                                        {{ $autoservice->office }}
                                     </a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Mechanics
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('mechanic-index') }}">
-                                        Mechanics List
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('mechanic-create') }}">
-                                        New Mechanic
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    Repairs
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('repair-index') }}">
-                                        Repairs List
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('repair-create') }}">
-                                        New Repair
-                                    </a>
+                                    @endforeach
+                                    @endif
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -105,6 +124,9 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('order-index') }}">
                                         Orders List
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('order-index') }}">
+                                        My Orders
                                     </a>
                                     <a class="dropdown-item" href="{{ route('order-create') }}">
                                         New Order
@@ -125,7 +147,8 @@
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
                                         @csrf
                                     </form>
                                 </div>

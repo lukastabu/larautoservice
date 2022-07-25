@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Autoservice;
+use App\Models\Mechanic;
+use App\Models\Repair;
 use Illuminate\Http\Request;
 
 class AutoserviceController extends Controller
@@ -58,9 +60,16 @@ class AutoserviceController extends Controller
      */
     public function show(int $aID)
     {
+        $mechanics = Mechanic::all();
+        $repairs = Repair::all();
+
         $autoservice = Autoservice::where('id', $aID)->first();
  
-        return view('autoservice.show', ['autoservice' => $autoservice]);
+        return view('autoservice.show', [
+            'autoservice' => $autoservice, 
+            'mechanics' => $mechanics, 
+            'repairs' => $repairs
+        ]);
     }
 
     /**

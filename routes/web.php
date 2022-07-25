@@ -29,7 +29,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // FRONT ROUTER
 
-// Route::get('', [F::class, 'index'])->name('front-index');
+Route::get('', [F::class, 'index'])->name('front-index');
+
+Route::get('/front/show/{id}', [F::class, 'show'])->name('front-show')->middleware('rw:user');
 
 
 // AUTOSERVICE ROUTERS
@@ -46,7 +48,7 @@ Route::put('/autoservices/{autoservice}', [A::class, 'update'])->name('autoservi
 
 Route::delete('/autoservices/{autoservice}', [A::class, 'destroy'])->name('autoservice-delete')->middleware('rw:admin');
 
-Route::get('/autoservices/show/{id}', [A::class, 'show'])->name('autoservice-show')->middleware('rw:admin');
+Route::get('/autoservices/show/{id}', [A::class, 'show'])->name('autoservice-show')->middleware('rw:user');
 
 
 // MECHANIC ROUTERS
@@ -87,7 +89,9 @@ Route::get('/repairs/show/{id}', [R::class, 'show'])->name('repair-show')->middl
 
 Route::get('/orders', [O::class, 'index'])->name('order-index')->middleware('rw:admin');
 
-Route::get('/orders/create', [O::class, 'create'])->name('order-create')->middleware('rw:admin');
+Route::get('/orders/create', [O::class, 'create'])->name('order-create')->middleware('rw:user');
+
+Route::get('/orders/submit/{id}', [O::class, 'submit'])->name('order-submit')->middleware('rw:user');
 
 Route::post('/orders', [O::class, 'store'])->name('order-store')->middleware('rw:admin');
 
@@ -97,5 +101,5 @@ Route::put('/orders/{order}', [O::class, 'update'])->name('order-update')->middl
 
 Route::delete('/orders/{order}', [O::class, 'destroy'])->name('order-delete')->middleware('rw:admin');
 
-Route::get('/orders/show/{id}', [O::class, 'show'])->name('order-show')->middleware('rw:admin');
+Route::get('/orders/show/{id}', [O::class, 'show'])->name('order-show')->middleware('rw:user');
 

@@ -23,7 +23,7 @@ class Autoservice extends Model
     }
     public function auto_order()
     {
-        return $this->hasMany(A::class, 'autoservice_id', 'id');   
+        return $this->hasMany(O::class, 'autoservice_id', 'id');   
     }
 
 }

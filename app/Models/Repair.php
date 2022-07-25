@@ -14,5 +14,4 @@ class Repair extends Model
     {
         return $this->belongsTo(A::class, 'autoservice_id', 'id');
     }
-
 }

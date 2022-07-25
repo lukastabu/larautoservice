@@ -18,7 +18,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+ 
+        return view('order.index', ['orders' => $orders]);
     }
 
     /**
@@ -28,7 +30,24 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $autoservices = Autoservice::all();
+
+        return view('order.create', [
+            'autoservices' => $autoservices,
+        ]);
+    }
+    public function submit(int $oID)
+    {
+        $mechanics = Mechanic::all();
+        $repairs = Repair::all();
+
+        $autoservice = Autoservice::where('id', $oID)->first();
+
+        return view('order.submit', [
+            'autoservice' => $autoservice, 
+            'mechanics' => $mechanics, 
+            'repairs' => $repairs
+        ]);
     }
 
     /**

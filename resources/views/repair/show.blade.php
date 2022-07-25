@@ -27,6 +27,7 @@
                                 <button class="btn btn-outline-danger" type="submit">Delete</button>
                             </form>
                         @endif
+                        <a class="btn btn-outline-warning" href="{{ route('repair-index') }}">Back to List</a>
                     </div>
                 </div>
             </div>
