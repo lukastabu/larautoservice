@@ -10,13 +10,10 @@
                     <div class="card-body list-group">
                         <li class="list-group-item">
                             <h4>Pick Mechanic, Repair service and proceed with Order</h4>
-                            <form class="" action="" method="POST">
-                                <input type="text" name="aID" value={{ $autoservice->id }} hidden/>
-                                {{-- <select name="" hidden>
-                                        <option value="{{ $autoservice->id }}">{{ $autoservice->office }}</option>
-                                </select><br> --}}
+                            <form class="" action="{{ route('order-store') }}" method="POST">
+                                <input type="text" name="autoservice_id" value={{ $autoservice->id }} hidden/>
                                 Mechanic:
-                                <select name="">
+                                <select name="mechanic_id">
                                     @foreach ($mechanics as $mechanic)
                                     @if($mechanic->autoservice_id == $autoservice->id)
                                         <option value="{{ $mechanic->id }}">{{ $mechanic->name }}Rating:{{ $mechanic->rating }}</option>
@@ -24,14 +21,15 @@
                                     @endforeach
                                 </select><br>
                                 Repair services:
-                                <select name="">
+                                <select name="repair_id">
                                     @foreach ($repairs as $repair)
                                     @if($repair->autoservice_id == $autoservice->id)
-                                        <option value="{{ $repair->repair }}">{{ $repair->repair }}
+                                        <option value="{{ $repair->id }}">{{ $repair->repair }}
                                             Price:{{ $repair->price }}eur Duration:{{ $repair->duration }} day</option>
                                     @endif
                                     @endforeach
                                 </select>
+                                @csrf
                                 <button class="btn btn-outline-success ml-1" type="submit">Submit Order</button>
                                 <a class="btn btn-outline-danger" href="{{ route('front-index') }}">Cancel</a>
                             </form>

@@ -7,6 +7,7 @@ use App\Models\Mechanic;
 use App\Models\Repair;
 use App\Models\Autoservice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class OrderController extends Controller
@@ -36,16 +37,15 @@ class OrderController extends Controller
             'autoservices' => $autoservices,
         ]);
     }
-    public function submit(int $oID)
+    public function submit(Request $request, int $aID)
     {
         $mechanics = Mechanic::all();
         $repairs = Repair::all();
-
-        $autoservice = Autoservice::where('id', $oID)->first();
+        $autoservice = Autoservice::where('id', $aID)->first();
 
         return view('order.submit', [
-            'autoservice' => $autoservice, 
-            'mechanics' => $mechanics, 
+            'autoservice' => $autoservice,
+            'mechanics' => $mechanics,
             'repairs' => $repairs
         ]);
     }
@@ -56,9 +56,17 @@ class OrderController extends Controller
      * @param  \App\Http\Requests\StoreOrderRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOrderRequest $request)
+    public function store(Request $request)
     {
-        //
+        $order = new Order;
+        $order -> autoservice_id = $request -> autoservice_id;
+        $order -> mechanic_id = $request -> mechanic_id;
+        $order -> repair_id = $request -> repair_id;
+        $order -> user_id = Auth::user()->id;
+        
+        $order->save();
+
+        return redirect()->route('order-index');
     }
 
     /**

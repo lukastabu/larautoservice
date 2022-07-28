@@ -21,6 +21,9 @@ return new class extends Migration
             $table->foreign('mechanic_id')->references('id')->on('mechanics');         
             $table->unsignedBigInteger('repair_id');   
             $table->foreign('repair_id')->references('id')->on('repairs');         
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedTinyInteger('status')->default(1);
             $table->timestamps();
         });
     }
